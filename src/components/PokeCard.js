@@ -3,18 +3,15 @@ export default {
     data(){
         return data;
     },
-    props: {
-    },
+    props: [
+        'pokemonId',
+        'pokemonName',
+        'type',
+        'img'
+    ],
 };
 
-const data = {
-    pokemonName: "Scyther",
-    pokemonId: "123",
-    type: "bug",
-    img: "https://images.gameinfo.io/pokemon/256/p123f148.png"
-}
-
-
+const data = {};
 
   
 

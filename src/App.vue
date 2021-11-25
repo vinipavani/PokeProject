@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Pokedex</router-link>
-    </div>
+    <h1 id="nav">
+    Pokedex
+    </h1>
     <router-view />
   </div>
 </template>
