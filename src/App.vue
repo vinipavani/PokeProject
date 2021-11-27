@@ -3,7 +3,6 @@
     <h1 id="nav">
     Pokedex
     </h1>
-    <router-view />
   </div>
 </template>
 

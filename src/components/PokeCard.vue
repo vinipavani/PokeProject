@@ -7,7 +7,7 @@
     >
         <img class="pokemon-img" alt="pokemon" :src="img"/>
         <div class="card-text">
-            <span> {{pokemonName+' - '+type}} </span>
+            <span> {{pokemonName}} </span>
             <span> {{'#'+ pokemonId}} </span>
             <slot 
                 v-if="showModal"
