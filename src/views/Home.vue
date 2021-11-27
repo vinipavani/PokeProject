@@ -8,7 +8,7 @@
             :type="pokemon.type"
             :img="pokemon.img"
         >
-        <PokeModal />
+        <PokeModal :type="pokemon.type" />
         </PokeCard>
     </div>
 </template>

@@ -6,8 +6,10 @@
         </transition>
 
         <transition name="slide" appear>
-            <div class='modal-content'>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            <div class='modal-content' :class="type">
+                <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</div>
+                <div>took a galley of type and scrambled it to make a type specimen book.</div>
             </div>
         </transition>
 
@@ -18,12 +20,12 @@
 <script>
 export default {
     name: "PokeModal",
-    props: [],
+    props: ['type'],
     data(){
         return {
-
         }
-    }
+    },
+    methods: {}
 };
 </script>
 
@@ -63,6 +65,5 @@ export default {
         top: 5%;
 
         z-index: 91;
-        background: #8d1515;
     }
 </style>
