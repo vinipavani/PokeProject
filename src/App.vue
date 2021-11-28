@@ -3,6 +3,7 @@
     <h1 id="nav">
     Pokedex
     </h1>
+    <home />
   </div>
 </template>
 

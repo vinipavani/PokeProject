@@ -6,7 +6,7 @@
         </transition>
 
         <transition name="slide" appear>
-            <div class='modal-content' :class="type">
+            <div class='modal-content' >
                 <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
                 <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</div>
                 <div>took a galley of type and scrambled it to make a type specimen book.</div>
@@ -20,12 +20,11 @@
 <script>
 export default {
     name: "PokeModal",
-    props: ['type'],
+    props: ['pokemonDataModal'],
     data(){
         return {
         }
     },
-    methods: {}
 };
 </script>
 

@@ -2,13 +2,13 @@
       
     <div 
         class="card-container" 
-        :class="type" 
         @click="showModal=!showModal"
+
     >
-        <img class="pokemon-img" alt="pokemon" :src="img"/>
+        <img class="pokemon-img" alt="pokemon" />
         <div class="card-text">
-            <span> {{pokemonName}} </span>
-            <span> {{'#'+ pokemonId}} </span>
+                <span> {{ pokemonData.name }} </span>
+                <span> {{'#' + pokemonData.id}} </span> 
             <slot 
                 v-if="showModal"
             />
@@ -21,21 +21,17 @@
 <script>
 export default {
     name: "PokeCard",
+    props: [
+        'pokemonData',
+    ],
     data(){
         return {
-        'showModal': false,
+            'showModal': false,
         }
     },
-    props: [
-        'pokemonId',
-        'pokemonName',
-        'type',
-        'img'
-    ],
-    methods: {
-        showConsole(msg) {
-            console.log(msg);
-        }
+    mounted(){
+        console.log(this.pokemonData);
+        return {}
     }
 };
 </script>
@@ -72,7 +68,6 @@ export default {
 
     .card-text{
         display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+        flex-direction: column;;
     }
 </style>

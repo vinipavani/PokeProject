@@ -2,13 +2,10 @@
     <div class="main-content">
         <PokeCard 
 			v-for="pokemon in pokemonList"
-			:key="pokemon.pokemonId"
-            :pokemonName="pokemon.pokemonName"
-            :pokemonId="pokemon.pokemonId"
-            :type="pokemon.type"
-            :img="pokemon.img"
+			:key="pokemon.data.id"
+            :pokemonData="pokemon.data"
         >
-        <PokeModal :type="pokemon.type" />
+            <PokeModal :pokemonDataModal="pokemon.data" />
         </PokeCard>
     </div>
 </template>
@@ -17,34 +14,8 @@
 <script>
 import PokeCard from "@/components/PokeCard.vue";
 import PokeModal from "@/components/PokeModal.vue";
-
-const pokemonList = [
-    {
-        "pokemonName": "Scyther",
-        "pokemonId": "123",
-        "type": "bug",
-        "img": "https://images.gameinfo.io/pokemon/256/p123f148.png"
-    },
-    {
-        "pokemonName": "charizard",
-        "pokemonId": "006",
-        "type": "fire",
-        "img": "https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2020/04/Charizard-Pok%C3%A9mon-PNG.png"
-    },
-    {
-        "pokemonName": "wartortle",
-        "pokemonId": "008",
-        "type": "water",
-        "img": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/008.png"
-    }
-]
-
-const data = {
-    pokemonList
-}
-
-console.log(pokemonList)
-console.log(data)
+import PokemonService from "@/services/PokemonService";
+import Vue from "vue";
 
 export default {
     name: "Home",
@@ -52,13 +23,49 @@ export default {
         PokeCard, 
         PokeModal
     },
-    data(){
-        return data;
-    },
+
     methods: {
-        
-    }
-};
+        // Pega a lista de pokemons paginada de 20 em 20
+        async getPokemons(){
+            await PokemonService.getPokemons()
+                .then((res) => {
+                    this.pokemonList = this.pokemonList.concat(res.data.results);
+                    this.next = res.data.next;                   
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        },
+
+        // Pega os dados individuais de cada pokemon
+        async getPokemonsProperties(){
+            await this.pokemonList.forEach(pokemon => {
+                PokemonService.getPokemonByName(pokemon.name)
+                    .then((res) => {
+                        pokemon.data = {}
+                        Vue.set(pokemon, 'data', res.data);
+                        console.log(pokemon);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            });
+        },
+    },
+
+    async mounted(){
+        await this.getPokemons();
+        await this.getPokemonsProperties();
+        return {};
+    },
+
+    data(){
+        return {
+            pokemonList: [],
+            next: "",
+        };
+    },
+}
 </script>
 
 
