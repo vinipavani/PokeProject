@@ -43,7 +43,14 @@
         </div>
 
         <div class="main-content-bottom">
-            
+            <h2>
+                Evolution chain
+            </h2>
+            <div>
+                <img >
+                <img >
+                <img >
+            </div>
         </div>
 
     </div>
@@ -51,10 +58,30 @@
 
 
 <script>
+import PokemonService from "../services/PokemonService.js";
+
 export default {
     name: "PokePageTop",
     props: ['pokemon'],
-    methods: { },
+    methods: { 
+        async getPokemonEvolutionChain(url) {
+            await PokemonService.getPokemonEvolutionChainByURL(url)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => { console.log(err) });
+        },
+
+        async getPokemonEvolutionBySpecies(id) {
+            await PokemonService.getPokemonSpecies(id)
+                .then((res) => {3
+                    console.log(res.data);
+                    this.getPokemonEvolutionChain(res.data.evolution_chain.url);
+                })
+                .catch ((err) => { console.log (err) });
+        },   
+    },
+
     computed: {
         imgSrc(){
             if(this.pokemon.data.sprites != undefined)
@@ -92,10 +119,9 @@ export default {
             if(this.pokemon.data.game_indices)
                 return this.pokemon.data.game_indices;
             return [];
-        }
+        },
     },
     mounted() {
-        console.log(this.pokemon);
     },
 }
 
@@ -108,9 +134,10 @@ export default {
     .main-content-top {
         display: flex;
         width: 100%;
-        height: 35vh;
+        height: 38vh;
         flex-flow: wrap;
         justify-content: space-between;
+        max-height: 270px;
     }
 
     .left-content{
@@ -124,9 +151,11 @@ export default {
     } .left-content img{
        width: 220px;
        height: auto;
+       max-height: 200px;
        justify-items: center;
     } .left-content div{
         text-align: start;
+        margin-left: 15px;
         width: 50%;
     }
 
@@ -160,6 +189,11 @@ export default {
     }
 
     .main-content-bottom{
-
+        width: 94%;
+        height: 30%;
+        min-height: 300px;
+        margin-top: 5%;
+        padding: 0 3%;
+        
     }
 </style>

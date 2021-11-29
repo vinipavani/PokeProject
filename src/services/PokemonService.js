@@ -15,12 +15,28 @@ export default {
     },
 
     //Traz os dados do pokemon e buscando pelo nome dele
-    getPokemonByName(name){
-        return apiClient.get('pokemon/' + name)
+    getPokemonByName(name) {
+        return apiClient.get('pokemon/' + name);
     },
 
     //Traz os dados do pokemon e buscando pelo nome dele
-    getPokemonById(id){
-        return apiClient.get('pokemon/' + id)
+    getPokemonById(id) {
+        return apiClient.get('pokemon/' + id);
     },
+
+    //Recebe o id do pokemon e retorna as informações de sua/suas evoluções.
+    getPokemonSpecies(id) {
+        return apiClient.get('pokemon-species/' + id);
+    },
+
+    getPokemonEvolutionChainByURL(url){
+        return axios.get(url , 
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                }   
+            }
+        )
+    }
 }
