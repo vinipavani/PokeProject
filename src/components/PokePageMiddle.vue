@@ -8,7 +8,7 @@
 <script>
 export default {
     name: "PokePageMiddle",
-    props: [],
+    props: ['pokemon'],
 }
 </script>
 

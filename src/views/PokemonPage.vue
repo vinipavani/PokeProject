@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <PokePageTop />
-        <PokePageMiddle />
-        <PokePageBottom />
+    <div class="main-content">
+        <PokePageTop :pokemon="pokemon" />
+        <PokePageMiddle :pokemon="pokemon" />
+        <PokePageBottom :pokemon="pokemon" />
     </div>
 </template>
 
@@ -19,10 +19,14 @@ export default {
         PokePageMiddle,
         PokePageBottom,
     },
+
     data() {
         return {
-            pokemon: {}
-        }
+            pokemon: {
+                data: {},
+                id: 0
+            }
+        };
     },
 
     methods: {
@@ -40,8 +44,7 @@ export default {
     async created() {
         this.pokemon.id = this.$route.params.id;
         await this.getPokemonProperty(this.pokemon.id);
-        console.log(this.pokemon);
-        return {}
+        return {};
     },
 }
 </script>
@@ -49,4 +52,8 @@ export default {
 <style scoped>
     @import "../assets/global.css";
 
+    .main-content{
+        width: 90vw;
+        margin: 0 auto;
+    }
 </style>

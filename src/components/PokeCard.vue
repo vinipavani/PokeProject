@@ -8,7 +8,7 @@
             <img class="pokemon-img" alt="pokemon" :src="pokemonData.sprites.front_default" />
             <div class="card-text">
                     <span> {{ pokemonData.name }} </span>
-                    <span> {{'#' + pokemonData.id}} </span> 
+                    <span> {{'#' + pokemonIndex }} </span> 
             </div>
         </router-link>
     </div>
@@ -22,6 +22,19 @@ export default {
     props: [
         'pokemonData',
     ],
+    computed: {
+        pokemonIndex(){
+            let formatedIndex;
+            if( this.pokemonData.id < 10 ) {
+                formatedIndex = '00' + this.pokemonData.id;
+                return formatedIndex;
+            } else if( this.pokemonData.id < 100 ) {
+                formatedIndex = '0' + this.pokemonData.id;
+                return formatedIndex;
+            }
+            return this.pokemonData.id;
+        }
+    }
 };
 </script>
 
