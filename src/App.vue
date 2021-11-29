@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <h1 id="nav">
-    Pokedex
-    </h1>
-    <home />
+      <h1 id="nav"> Pokedex </h1>
+      <router-view />
   </div>
 </template>
 

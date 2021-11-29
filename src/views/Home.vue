@@ -2,10 +2,9 @@
     <div class="main-content">
         <PokeCard 
 			v-for="pokemon in pokemonList"
-			:key="pokemon.data.id"
-            :pokemonData="pokemon.data"
+			:key="pokemon.id"
+            :pokemonData="pokemon"
         >
-            <PokeModal :pokemonDataModal="pokemon.data" />
         </PokeCard>
     </div>
 </template>
@@ -13,15 +12,12 @@
 
 <script>
 import PokeCard from "@/components/PokeCard.vue";
-import PokeModal from "@/components/PokeModal.vue";
 import PokemonService from "@/services/PokemonService";
-import Vue from "vue";
 
 export default {
     name: "Home",
     components: {
         PokeCard, 
-        PokeModal
     },
 
     methods: {
@@ -29,8 +25,8 @@ export default {
         async getPokemons(){
             await PokemonService.getPokemons()
                 .then((res) => {
-                    this.pokemonList = this.pokemonList.concat(res.data.results);
-                    this.next = res.data.next;                   
+                    this.next = res.data.next;
+                    this.getPokemonsProperties(res.data.results);                   
                 })
                 .catch((err) => {
                     console.log(err)
@@ -38,24 +34,24 @@ export default {
         },
 
         // Pega os dados individuais de cada pokemon
-        async getPokemonsProperties(){
-            await this.pokemonList.forEach(pokemon => {
-                PokemonService.getPokemonByName(pokemon.name)
+        async getPokemonsProperties(pokemonList){
+            let promises = pokemonList.map(pokemon => {
+                return PokemonService.getPokemonByName(pokemon.name)
                     .then((res) => {
-                        pokemon.data = {}
-                        Vue.set(pokemon, 'data', res.data);
-                        console.log(pokemon);
+                        this.pokemonList.push(res.data);
                     })
                     .catch((err) => {
                         console.log(err);
                     })
             });
+            await Promise.all(promises)
+            this.pokemonList.sort((a,b)=> a.id-b.id)
         },
     },
 
     async mounted(){
         await this.getPokemons();
-        await this.getPokemonsProperties();
+        console.log(this.pokemonList);
         return {};
     },
 

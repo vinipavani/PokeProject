@@ -17,5 +17,10 @@ export default {
     //Traz os dados do pokemon e buscando pelo nome dele
     getPokemonByName(name){
         return apiClient.get('pokemon/' + name)
-    }
+    },
+
+    //Traz os dados do pokemon e buscando pelo nome dele
+    getPokemonById(id){
+        return apiClient.get('pokemon/' + id)
+    },
 }

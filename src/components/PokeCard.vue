@@ -2,17 +2,15 @@
       
     <div 
         class="card-container" 
-        @click="showModal=!showModal"
-
-    >
-        <img class="pokemon-img" alt="pokemon" />
-        <div class="card-text">
-                <span> {{ pokemonData.name }} </span>
-                <span> {{'#' + pokemonData.id}} </span> 
-            <slot 
-                v-if="showModal"
-            />
-        </div>
+        :class="pokemonData.types[0].type.name"
+    >   
+        <router-link :to="`/pokemon/${pokemonData.id}`">
+            <img class="pokemon-img" alt="pokemon" :src="pokemonData.sprites.front_default" />
+            <div class="card-text">
+                    <span> {{ pokemonData.name }} </span>
+                    <span> {{'#' + pokemonData.id}} </span> 
+            </div>
+        </router-link>
     </div>
     
 </template>
@@ -24,15 +22,6 @@ export default {
     props: [
         'pokemonData',
     ],
-    data(){
-        return {
-            'showModal': false,
-        }
-    },
-    mounted(){
-        console.log(this.pokemonData);
-        return {}
-    }
 };
 </script>
 
@@ -50,8 +39,6 @@ export default {
         margin: 10px;
         
     } .card-container:hover {
-        width: 185px;
-        height: 205px;
         box-shadow: 5px 5px rgba(0,0,0, 0.6);
     }
 
@@ -68,6 +55,10 @@ export default {
 
     .card-text{
         display: flex;
-        flex-direction: column;;
+        flex-direction: column;
+    }
+    a{
+        text-decoration: none;
+        color: #000;
     }
 </style>
