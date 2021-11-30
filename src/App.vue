@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-
-      <h1 > Pokedex </h1>
+      <router-link to="/">
+        <h1 > Pokedex </h1>
+      </router-link>
     </div>
     <div class="space"></div>
     <router-view />
@@ -36,10 +37,12 @@
 }
 
 #nav a {
-  color: #2c3e50;
+  color: #f5e44a;
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #f5e44a;
+  text-decoration: none;
 }
 </style>
