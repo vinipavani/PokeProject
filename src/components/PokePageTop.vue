@@ -55,7 +55,7 @@
                     <img >
                     <p>{{secondEvName}}</p>
                 </div>
-                <div>
+                <div v-if="thirdEvName">
                     <img >
                     <p>{{thirdEvName}}</p>
                 </div>
