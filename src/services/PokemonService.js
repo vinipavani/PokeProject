@@ -11,7 +11,7 @@ const apiClient = axios.create({
 export default {
     //Pega nome e url com os dados de cada pokemon paginado para pegar de 20 em 20
     getPokemons() {
-        return apiClient.get('pokemon');
+        return apiClient.get('pokemon?offset=0&limit=40');
     },
 
     //Traz os dados do pokemon e buscando pelo nome dele
