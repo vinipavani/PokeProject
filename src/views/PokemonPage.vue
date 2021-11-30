@@ -1,5 +1,5 @@
 <template>
-    <div class="main-content">
+    <div v-if="loaded" class="main-content">
         <PokePageTop :pokemon="pokemon" />
         <PokePageMiddle :pokemon="pokemon" />
         <PokePageBottom :pokemon="pokemon" />
@@ -25,7 +25,8 @@ export default {
             pokemon: {
                 data: {},
                 id: 0
-            }
+            },
+            loaded: false
         };
     },
 
@@ -34,6 +35,7 @@ export default {
             await PokemonService.getPokemonById(id)
                 .then((res) => {
                     this.pokemon.data = res.data;
+                    this.loaded = true;
                 })
                 .catch((err) => {
                     console.log(err);

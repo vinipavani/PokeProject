@@ -97,7 +97,6 @@ export default {
     },
 
     mounted() {
-        console.log(this.pokemon);
         this.makeSpriteLists(this.pokemon.data.sprites, this.classicSprites);
     },
 }

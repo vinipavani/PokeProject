@@ -47,12 +47,29 @@ export default {
             await Promise.all(promises)
             this.pokemonList.sort((a,b)=> a.id-b.id)
         },
+
+        //Paginação dos pokemons
+        getNextPokemons() {
+            window.onscroll = () => {
+                let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    PokemonService.getPokemonsByURL(this.next)
+                        .then((res) => {
+                            this.next = res.data.next;
+                            this.getPokemonsProperties(res.data.results);
+                        })
+                        .catch(() => {});
+                }
+            }
+        }
     },
 
-    async mounted(){
+    async beforeMount(){
         await this.getPokemons();
-        console.log(this.pokemonList);
-        return {};
+    },
+
+    mounted(){
+        this.getNextPokemons();
     },
 
     data(){

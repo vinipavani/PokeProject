@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-      <h1 id="nav"> Pokedex </h1>
-      <router-view />
+    <div id="nav">
+
+      <h1 > Pokedex </h1>
+    </div>
+    <div class="space"></div>
+    <router-view />
+      
   </div>
 </template>
 
@@ -14,8 +19,20 @@
   color: #2c3e50;
 }
 
+.space{
+  height: 10px;
+  margin-bottom: 90px;
+}
+
 #nav {
-  padding: 30px;
+  background-color: #A60B0B;
+  width: 100vw;
+  margin-top: 0;
+  color: #f5e44a;
+
+  position: fixed;
+  top:0;
+  right: 0;
 }
 
 #nav a {

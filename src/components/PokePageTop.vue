@@ -46,10 +46,19 @@
             <h2>
                 Evolution chain
             </h2>
-            <div>
-                <img >
-                <img >
-                <img >
+            <div class="evolution-content" v-if="loaded">
+                <div>
+                    <img >
+                    <p>{{firstEvName}}</p>
+                </div>
+                <div>
+                    <img >
+                    <p>{{secondEvName}}</p>
+                </div>
+                <div>
+                    <img >
+                    <p>{{thirdEvName}}</p>
+                </div>
             </div>
         </div>
 
@@ -67,7 +76,8 @@ export default {
         async getPokemonEvolutionChain(url) {
             await PokemonService.getPokemonEvolutionChainByURL(url)
                 .then((res) => {
-                    console.log(res);
+                    this.evChain = res.data.chain;
+                    this.loaded = true;
                 })
                 .catch((err) => { console.log(err) });
         },
@@ -75,7 +85,6 @@ export default {
         async getPokemonEvolutionBySpecies(id) {
             await PokemonService.getPokemonSpecies(id)
                 .then((res) => {3
-                    console.log(res.data);
                     this.getPokemonEvolutionChain(res.data.evolution_chain.url);
                 })
                 .catch ((err) => { console.log (err) });
@@ -120,9 +129,36 @@ export default {
                 return this.pokemon.data.game_indices;
             return [];
         },
+        firstEvName() {
+            if (this.evChain.species) {
+                return this.evChain.species.name;
+            } 
+            return '';
+        },
+        secondEvName() {
+            if (this.evChain.evolves_to[0]) {
+                return this.evChain.evolves_to[0].species.name;
+            }
+            return '';
+        },
+        thirdEvName() {
+            if (this.evChain.evolves_to[0].evolves_to[0]) {
+                return this.evChain.evolves_to[0].evolves_to[0].species.name;
+            }
+            return '';
+        }
     },
+
     mounted() {
+        this.getPokemonEvolutionBySpecies(this.pokemon.data.id);
     },
+
+    data() {
+        return {
+            evChain: {},
+            loaded: false,
+        }
+    }
 }
 
 </script>
@@ -195,5 +231,12 @@ export default {
         margin-top: 5%;
         padding: 0 3%;
         
+    }
+
+    .evolution-content {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: space-evenly;
     }
 </style>

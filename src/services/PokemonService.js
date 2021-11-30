@@ -38,5 +38,17 @@ export default {
                 }   
             }
         )
+    },
+
+    getPokemonsByURL(url){
+        return axios.get(url , 
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                }   
+            }
+        )
     }
+
 }
