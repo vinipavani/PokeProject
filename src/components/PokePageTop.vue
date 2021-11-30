@@ -44,21 +44,16 @@
 
         <div class="main-content-bottom">
             <h2>
-                Evolution chain
+                {{secondEvName? ("Evolution Chain"):("This Pokemon Doesn't Have an Evolution")}}
             </h2>
             <div class="evolution-content" v-if="loaded">
-                <div>
-                    <img >
-                    <p>{{firstEvName}}</p>
-                </div>
-                <div>
-                    <img >
-                    <p>{{secondEvName}}</p>
-                </div>
-                <div v-if="thirdEvName">
-                    <img >
-                    <p>{{thirdEvName}}</p>
-                </div>
+                
+                <p>{{firstEvName}}</p>
+                <img v-if="secondEvName" src="../assets/seta.png" alt="seta" class="seta">
+                <p v-if="secondEvName">{{secondEvName}}</p>
+                <img v-if="thirdEvName" src="../assets/seta.png" alt="seta" class="seta">
+                <p v-if="thirdEvName">{{thirdEvName}}</p>
+                
             </div>
         </div>
 
@@ -136,7 +131,7 @@ export default {
             return '';
         },
         secondEvName() {
-            if (this.evChain.evolves_to[0]) {
+            if (this.evChain.evolves_to) {
                 return this.evChain.evolves_to[0].species.name;
             }
             return '';
@@ -226,11 +221,15 @@ export default {
 
     .main-content-bottom{
         width: 94%;
-        height: 30%;
-        min-height: 300px;
+        height: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 150px;
         margin-top: 5%;
         padding: 0 3%;
-        
+        margin-bottom: 50px;
     }
 
     .evolution-content {
@@ -238,5 +237,11 @@ export default {
         width: 100%;
         height: 100%;
         justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .seta{
+        width: 30px;
+        height: 30px;
     }
 </style>
